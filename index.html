@@ -315,7 +315,8 @@ p { margin: 0; }
 
 /* ---------- contact / footer ---------- */
 .contact-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; }
-@media (min-width: 760px) { .contact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 760px) { .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .contact-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .contact-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s); padding: 1rem 1.1rem; display: grid; gap: .35rem; min-width: 0; }
 .contact-card .k { font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 .contact-card .v { font-weight: 500; word-break: break-word; }
@@ -400,7 +401,7 @@ dialog::backdrop { background: rgba(8, 12, 18, .62); backdrop-filter: blur(3px);
       <p class="position-2">Guest Scientist, Max Planck Institute of Biophysics, Frankfurt</p>
       <p class="tagline">I solve the structures of metalloenzymes and redox complexes by cryo-EM, and now use AI-driven protein design to build new protein assemblies for biomedicine.</p>
       <ul class="chips" aria-label="Keywords"><li class="chip-tag">Cryo-EM</li><li class="chip-tag">Metalloproteins &amp; redox enzymes</li><li class="chip-tag">AI-designed protein assemblies</li><li class="chip-tag">Macromolecular complexes</li><li class="chip-tag">Functional proteomics</li></ul>
-      <div class="actions"><a class="btn btn-primary" href="https://orcid.org/0009-0000-1951-1423" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 8.5v8M8 6.6a.9.9 0 1 0 0-.1zM11 8.5h3.4a3.9 3.9 0 0 1 0 7.8H11z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>ORCID</a><span class="email-wrap"><span data-email-user="psansegundo" data-email-domain="cnio.es">psansegundo [at] cnio.es</span><button type="button" class="btn btn-small" data-copy-email>Copy</button></span></div>
+      <div class="actions"><a class="btn btn-primary" href="https://orcid.org/0009-0000-1951-1423" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 8.5v8M8 6.6a.9.9 0 1 0 0-.1zM11 8.5h3.4a3.9 3.9 0 0 1 0 7.8H11z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>ORCID</a><span class="email-wrap"><span data-email-user="pasanseg" data-email-domain="gmail.com">pasanseg [at] gmail.com</span><button type="button" class="btn btn-small" data-copy-email>Copy</button></span></div>
     </div>
   </div>
 </section>
@@ -784,7 +785,8 @@ dialog::backdrop { background: rgba(8, 12, 18, .62); backdrop-filter: blur(3px);
   <div class="wrap">
     <div class="section-head"><p class="eyebrow">Contact</p><h2 id="contact-title">Get in touch</h2></div>
     <div class="contact-grid">
-      <div class="contact-card"><span class="k">Email</span><span class="v"><span data-email-user="psansegundo" data-email-domain="cnio.es">psansegundo [at] cnio.es</span></span><span><button type="button" class="btn btn-small" data-copy="psansegundo@cnio.es">Copy address</button></span></div>
+      <div class="contact-card"><span class="k">Email</span><span class="v"><span data-email-user="pasanseg" data-email-domain="gmail.com">pasanseg [at] gmail.com</span></span><span><button type="button" class="btn btn-small" data-copy="pasanseg@gmail.com">Copy address</button></span></div>
+      <div class="contact-card"><span class="k">Institutional email</span><span class="v"><span data-email-user="psansegundo" data-email-domain="cnio.es">psansegundo [at] cnio.es</span></span><span><button type="button" class="btn btn-small" data-copy="psansegundo@cnio.es">Copy address</button></span></div>
       <div class="contact-card"><span class="k">ORCID</span><span class="v"><a href="https://orcid.org/0009-0000-1951-1423" target="_blank" rel="noopener">0009-0000-1951-1423</a></span></div>
       <div class="contact-card"><span class="k">Institution</span><span class="v">Structural Biology Programme, Spanish National Cancer Research Centre (CNIO), Madrid, Spain</span></div>
     </div>
@@ -884,13 +886,11 @@ dialog::backdrop { background: rgba(8, 12, 18, .62); backdrop-filter: blur(3px);
   document.querySelectorAll('[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () { copyText(b.getAttribute('data-copy'), b); });
   });
+  function spanAddr(el) { return el.getAttribute('data-email-user') + '@' + el.getAttribute('data-email-domain'); }
   var emailEls = document.querySelectorAll('[data-email-user]');
-  if (emailEls.length) {
-    var addr = emailEls[0].getAttribute('data-email-user') + '@' + emailEls[0].getAttribute('data-email-domain');
-    emailEls.forEach(function (el) { el.textContent = addr; });
-    var cp = document.querySelector('[data-copy-email]');
-    if (cp) cp.addEventListener('click', function () { copyText(addr, cp); });
-  }
+  emailEls.forEach(function (el) { el.textContent = spanAddr(el); });
+  var cp = document.querySelector('[data-copy-email]');
+  if (cp && emailEls.length) cp.addEventListener('click', function () { copyText(spanAddr(emailEls[0]), cp); });
 
   /* ---------- paper dialog ---------- */
   var dlg = document.getElementById('paper-dialog');
